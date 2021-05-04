@@ -24,6 +24,14 @@ public class BSTHeapTree {
 		NewTree.add(109);
 		NewTree.add(11);
 		NewTree.add(1000);
+		
+		NewTree.add(1100);
+		NewTree.add(1200);
+		NewTree.add(500);
+		NewTree.add(105);
+		NewTree.add(107);
+		NewTree.add(1100);
+		NewTree.add(1040);
 
 		NewTree.add(10);
 

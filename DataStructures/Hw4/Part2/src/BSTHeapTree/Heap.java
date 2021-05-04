@@ -53,7 +53,16 @@ public class Heap <E extends Comparable<E>>{
 	private ArrayList<Node<E>> Nodes = new ArrayList<Node<E>>();
 	private int depth;
 	
+	//private E mod;
+	private int modNumberOfOcurrence;
 	
+	
+	public int getModNumberOfOcurrence() {
+		return modNumberOfOcurrence;
+	}
+	public void setModNumberOfOcurrence(int modNumberOfOcurrence) {
+		this.modNumberOfOcurrence = modNumberOfOcurrence;
+	}
 	/*
 	 * Getters for value of node
 	 * This function provides to reach Nodes' variable. Because we take the heap parameter and 
@@ -99,6 +108,26 @@ public class Heap <E extends Comparable<E>>{
 		this.depth = depth;
 	}
 	
+    public E find_mod()
+    {
+    	int temp;
+    	E mod;
+    	
+    	setModNumberOfOcurrence(Nodes.get(0).getNumberOfOcurrences() );
+    	//setMod(Nodes.get(0).getValue());
+    	mod = Nodes.get(0).getValue();
+    	for(int i=1; i<Nodes.size() ; i++)
+    	{
+    		if(getModNumberOfOcurrence() < Nodes.get(i).getNumberOfOcurrences())
+    		{
+    	    	setModNumberOfOcurrence(Nodes.get(i).getNumberOfOcurrences() );
+    			mod = Nodes.get(i).getValue();
+    		}
+    	}
+    	return mod;
+    	
+    }
+	
 	/*
 	 * Remove function deletes specific item in the heap
 	 * @parameter item Item is value that will delete
@@ -120,6 +149,11 @@ public class Heap <E extends Comparable<E>>{
     			//It changes the item that will delete with the last item and delete this item
             	Nodes.set(temp,Nodes.get(Nodes.size()-1));
                 Nodes.remove(Nodes.size()-1);
+                
+                if(Nodes.size() == 0)
+                {
+                	return 0;
+                }
                 //If The deleted item is root or greater than the parent item it will sort the heap toward down otherwise sort toward up
                 if ( temp == 0 || Nodes.get(parent).getValue().compareTo(Nodes.get(temp).getValue()) > 0 ) 
                 {
@@ -141,6 +175,7 @@ public class Heap <E extends Comparable<E>>{
         return 0;
     }
     
+
     /*
      * Sort the heap toward down
      * @parameter i It is the deleted item index
@@ -289,5 +324,6 @@ public class Heap <E extends Comparable<E>>{
     	
     	return -1;
     }
-    
+
+
 }
