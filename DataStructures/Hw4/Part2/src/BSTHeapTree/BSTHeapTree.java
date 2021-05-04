@@ -1,15 +1,27 @@
 package BSTHeapTree;
+import java.util.Random;
 
 public class BSTHeapTree {
-	public static void main(String[] args)
+		
+	public static void driverFunction()
 	{
-		
-		Heap<Integer> NewHeap = new Heap<Integer>();
-		Heap<Integer> NewHeapp = new Heap<Integer>();
-		
+
+
+	    Random rand = new Random();
+
+		HeapTree<Integer> NewSecondTree = new HeapTree<Integer>();
 		HeapTree<Integer> NewTree = new HeapTree<Integer>();
+
 		
-		NewTree.add(10);
+		for(int i=0; i<3000 ; i++)
+		{
+	        int randN = rand.nextInt(100);
+			NewSecondTree.add(randN);
+		}
+		
+		System.out.println(NewSecondTree.find_mod()+"  "+NewSecondTree.getNumberOfOcurrences() );
+		
+		
 		NewTree.add(16);
 		NewTree.add(17);
 		NewTree.add(125);
@@ -33,54 +45,27 @@ public class BSTHeapTree {
 		NewTree.add(1100);
 		NewTree.add(1040);
 
+		NewTree.add(122);
+		NewTree.add(122);
+		NewTree.add(122);
+
 		NewTree.add(10);
 
 		NewTree.add(1);
 		NewTree.add(5);
 
+		
+		
+		System.out.println(NewTree.find_mod());
+		System.out.println(NewTree.find(10));
+
 		NewTree.travelPrint();
-		/*
-		NewHeapp.add(10);
-		NewHeapp.add(11);
-		NewHeapp.add(11);
-		NewHeapp.add(12);
-		NewHeapp.add(13);
-		
-		NewHeapp.printList();
-		
-		System.out.println();
-		
-		NewHeap.add(14);
-		NewHeap.add(13);
-		NewHeap.add(12);
-		NewHeap.add(11);
-		NewHeap.add(11);
-		NewHeap.add(11);
 
-		NewHeap.add(10);
-		NewHeap.add(15);
-		NewHeap.add(16);
-		NewHeap.add(17);
-		
-		System.out.println();
+	}
+	
+	public static void main(String[] args)
+	{
+		driverFunction();
 
-		NewHeap.printList();
-
-		NewHeap.remove(11);
-		NewHeap.remove(11);
-		NewHeap.remove(11);
-		
-		System.out.println();
-
-		NewHeap.printList();
-
-		NewHeap.remove(14);
-
-
-		System.out.println();
-
-				*/
-		
-		NewHeap.printList();
 	}
 }

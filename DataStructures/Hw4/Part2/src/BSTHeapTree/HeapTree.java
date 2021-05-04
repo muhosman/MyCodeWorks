@@ -23,9 +23,17 @@ public class HeapTree<E extends Comparable<E>> {
 	private int numberOfOcurrence;
 	private E mod;
 
+	/*
+	 * Getters of mod
+	 * @return mod
+	 */
 	public E getMod() {
 		return mod;
 	}
+	/*
+	 * Setters of mod
+	 * @parameter mod 
+	 */
 	public void setMod(E mod) {
 		this.mod = mod;
 	}
@@ -52,6 +60,10 @@ public class HeapTree<E extends Comparable<E>> {
 		root = null;
 	}
 	
+	/*
+	 * It will find mod in the tree so it calls to travel find mod.
+	 * @return It will return the mod element
+	 */
 	public E find_mod()
 	{
 		int temp = root.parent.getModNumberOfOcurrence();
@@ -61,6 +73,12 @@ public class HeapTree<E extends Comparable<E>> {
 	
 		return travelFindMod(root,temp);
 	}
+	
+	/*
+	 * This function travels in tree for find the mod number.
+	 * @return root
+	 * @return tempNumberOfOcurrence It takes first mod number of numberOfOcurence
+	 */
     public E travelFindMod(Node<E> root,int tempNumberOfOcurrence)
     {
     	E temp;
@@ -68,8 +86,8 @@ public class HeapTree<E extends Comparable<E>> {
         if (root != null) {
             travelFindMod(root.left,tempNumberOfOcurrence);
             
-            
     		temp = (E) root.parent.find_mod();
+    		
     		if(root.parent.getModNumberOfOcurrence() > tempNumberOfOcurrence)
     		{
     			tempNumberOfOcurrence = root.parent.getModNumberOfOcurrence();
@@ -83,20 +101,20 @@ public class HeapTree<E extends Comparable<E>> {
         return getMod();
     }
 	
+    
 	/*
 	 * It will remove specific element from tree
 	 * @parameter element The element is value that will add
 	 * @return numberOfOcurence It will return numberOfOcurrences for added item
 	 */
-	/*
+    /*
 	public int remove(E element)
     {
          root = removeRecursive(root, element);
          return getNumberOfOcurrences();
     }
-	*/
 
-	
+	*/
 	/*
 	 * It will recursively travel this tree until to add this newValue
 	 * @parameter root Root node
@@ -120,17 +138,26 @@ public class HeapTree<E extends Comparable<E>> {
 				}
 				else
 				{
-					
+					if(root.parent.getElement(0).compareTo((E)root.left.parent.getElement(0)) < 0)
+					{
+						sortTree(root);
+					}
+					else if(root.parent.getElement(0).compareTo((E)root.right.parent.getElement(0)) < 0)
+					{
+						sortTree(root);
+					}
+					else 
+						return root;
 				}
 			}
 			else 
 				return root;
 		}
-    	if( root == null)
+		else if( root == null)
     	{
     		return root;
     	}
-        if ( root.parent.getElement(0).compareTo(newValue) > 0)
+		else if ( root.parent.getElement(0).compareTo(newValue) > 0)
         {
             root.left = removeRecursive(root.left, newValue);
         }
@@ -143,19 +170,28 @@ public class HeapTree<E extends Comparable<E>> {
         return root;
     }
 	
-	public Node<E> minRoot(Node<E> root)
+	public void sortTree(Node<E> root)
 	{
-		int minv = root.key;
-        while (root.left != null)
-        {
-            minv = root.left.key;
-            root = root.left;
-        }
-        return minv;
+		if(root.parent.getElement(0).compareTo((E)root.left.parent.getElement(0)) < 0)
+		{
+			Node<E> templ = root.left;
+			Node<E> tempr = root.right;
+
+			sortTree(root.left);
+		}
+		else if(root.parent.getElement(0).compareTo((E)root.right.parent.getElement(0)) < 0)
+		{
+			sortTree(root.right);
+		}
+		
+		
 	}
 	
-*/
-	
+	public Node<E> minRoot(Node<E> root)
+	{
+
+	}
+		*/
 	/*
 	 * It will add newValue in tree
 	 * @parameter newValue The newValue is value that will add
@@ -210,6 +246,31 @@ public class HeapTree<E extends Comparable<E>> {
         return root;
     }
 	
+    public int find(E element)
+    {
+    	int temp = travelfind(root,element);
+        return root.parent.getNumberOfOcurrences(temp);
+    }
+
+    private int travelfind(Node<E> root,E element)
+    {
+    	int temp = root.parent.Search(element);
+    	
+        if (root != null && temp == -1) {
+            temp = travelfind(root.left,element);
+            if(temp != -1)
+            	return temp;
+            temp = travelfind(root.right,element);
+            if(temp != -1)
+            	return temp;
+        }
+        else if(temp == -1)
+        {
+        	return -1;
+        }
+        
+        return temp;
+    }
 	
 	 /*
 	  * Print function.

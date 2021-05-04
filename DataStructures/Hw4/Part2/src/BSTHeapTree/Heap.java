@@ -189,8 +189,6 @@ public class Heap <E extends Comparable<E>>{
 		{
 			left = (i*2)+1;
 			right = (i*2)+2;
-	    	System.out.println("Parent-"+i+" Rigth-"+left+" Right-"+right);
-
 			
 			if(right <= Nodes.size())
 			{
@@ -296,17 +294,17 @@ public class Heap <E extends Comparable<E>>{
 	     
 	 }
 
-	 /*
-	  * Print function.
-	  */
-    public void printList() 
-    {
-    	for(int i=0; i < Nodes.size() ; i++)
-    	{
-    		System.out.print(Nodes.get(i).getValue()+"-"+Nodes.get(i).getNumberOfOcurrences() + " || ");
-    	}
-    }
-    
+
+	    public int Search(E element)
+	    {
+	    	int temp = SearchElement(element);
+	    	if( temp != -1)
+	    		System.out.println("Element is founded.");
+	    	else
+	    		System.out.println("Element is not founded.");
+	    	return temp;
+	    }
+	    
     /*
      * To search the specific item in the heap
      * @parameter element Element is generic variable that will search in heap.
@@ -316,8 +314,6 @@ public class Heap <E extends Comparable<E>>{
     	for(int i=0 ; i<Nodes.size(); i++)
     	{
     		if(Nodes.get(i).getValue().compareTo(element) == 0) {
-    			System.out.println("Burda1-"+Nodes.get(i).getValue()+"\n");
-
     			return i;
     		}
     	}
@@ -325,5 +321,15 @@ public class Heap <E extends Comparable<E>>{
     	return -1;
     }
 
-
+	 /*
+	  * Print function.
+	  */
+   public void printList() 
+   {
+   	for(int i=0; i < Nodes.size() ; i++)
+   	{
+   		System.out.print(Nodes.get(i).getValue()+"-"+Nodes.get(i).getNumberOfOcurrences() + " || ");
+   	}
+   }
+   
 }
