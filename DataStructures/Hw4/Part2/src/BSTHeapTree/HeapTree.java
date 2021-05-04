@@ -4,14 +4,14 @@ public class HeapTree<E extends Comparable<E>> {
 	
 	private class Node<E>
     {
-        private Heap<E> parent;
+        private Heap<? super E> parent;
         private Node<E> left, right;
         
         /*
          * Constructor of Node
          * @parameter item It is a new Heap item.
          */
-        public Node(Heap<E> item)
+        public Node(Heap<? super E> item)
         {
             parent = item;
             left = null; 
@@ -20,7 +20,22 @@ public class HeapTree<E extends Comparable<E>> {
     }
 	
 	private Node<E> root;
-
+	private int numberOfOcurrence;
+	
+	/*
+	 * Getters of NumberOfOcurrences
+	 * @return numberOfOcurrences
+	 */
+	public int getNumberOfOcurrences() {
+		return numberOfOcurrence;
+	}
+	/*
+	 * Setters of NumberOfOcurrences
+	 * @parameter numberOfOcurrences New numbers of value
+	 */
+	public void setNumberOfOcurrences(int numberOfOcurrence) {
+		this.numberOfOcurrence = numberOfOcurrence;
+	}
 	
 	/*
 	 * Constructor
@@ -30,16 +45,24 @@ public class HeapTree<E extends Comparable<E>> {
 		root = null;
 	}
 	
-	public void add(E newValue)
+	public int add(E newValue)
     {
-         root = insertRec(root, newValue);
+         root = addRecursive(root, newValue);
+         return getNumberOfOcurrences();
     }
 	
+	/*
+	 * It will recursively travel this tree until to add this newValue
+	 * @parameter root Root node
+	 * @parameter newValue The newValue is value that will add
+	 * @return root It will return this root that is in already there.
+	 */
 	public Node<E> addRecursive(Node<E> root,E newValue)
     {
  
-        /* If the tree is empty,
-           return a new node */
+        /* 
+         * If the tree is empty, we will add new Heap with newValue and return this node. 
+         */
         if (root == null)
         {
         	Heap<E> newH = new Heap<E>();
@@ -48,31 +71,47 @@ public class HeapTree<E extends Comparable<E>> {
             return root;
         }
  
-        /* Otherwise, recur down the tree */
-        if ( root.parent.getElement(0).compareTo(newValue) > 0)
+        /* 
+         * If the value can add this root, it will add to this root otherwhise it will go down.
+         */
+    	int temp = root.parent.add(newValue);
+    	
+    	if( temp != -1)
+    	{
+    		setNumberOfOcurrences(temp);
+    		return root;
+    	}
+        else if ( root.parent.getElement(0).compareTo(newValue) > 0)
         {
-        	int temp = root.parent.add(newValue);
-        	if( temp != -1)
-        	{
-        		return root;
-        	}
-        	
             root.left = addRecursive(root.left, newValue);
         }
         else if (root.parent.getElement(0).compareTo(newValue) < 0)
-        {
-        	int temp = root.parent.add(newValue);
-        	if( temp != -1)
-        	{
-        		return root;
-        	}
-        	
+        {	
             root.right = addRecursive(root.right, newValue);
-
         }
  
-        /* return the (unchanged) node pointer */
         return root;
+    }
+	
+	
+	 /*
+	  * Print function.
+	  */
+    void travelPrint()
+    {
+         travel(root);
+    }
+ 
+    // A utility function to
+    // do inorder traversal of BST
+    void travel(Node<E> root)
+    {
+        if (root != null) {
+            travel(root.left);
+            root.parent.printList();
+            System.out.println();
+            travel(root.right);
+        }
     }
 	
 	

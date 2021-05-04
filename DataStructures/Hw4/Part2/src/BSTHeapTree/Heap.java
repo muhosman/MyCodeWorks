@@ -268,7 +268,7 @@ public class Heap <E extends Comparable<E>>{
     {
     	for(int i=0; i < Nodes.size() ; i++)
     	{
-    		System.out.println(Nodes.get(i).getValue()+"-"+Nodes.get(i).getNumberOfOcurrences());
+    		System.out.print(Nodes.get(i).getValue()+"-"+Nodes.get(i).getNumberOfOcurrences() + " || ");
     	}
     }
     
@@ -278,11 +278,11 @@ public class Heap <E extends Comparable<E>>{
      */
     private int SearchElement(E element)
     {
-    	
     	for(int i=0 ; i<Nodes.size(); i++)
     	{
-    		if(Nodes.get(i).getValue() == element) {
-    			System.out.println("Burda1-"+Nodes.get(i).getValue());
+    		if(Nodes.get(i).getValue().compareTo(element) == 0) {
+    			System.out.println("Burda1-"+Nodes.get(i).getValue()+"\n");
+
     			return i;
     		}
     	}
