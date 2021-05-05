@@ -185,12 +185,12 @@ public class Heap <E extends Comparable<E>>{
 		//left and right child index variable
 		int left,right;
 		//It will repeat until the last child index
-		while((2*i)+1 <= Nodes.size())
+		while((2*i)+1 <= Nodes.size()-1)
 		{
 			left = (i*2)+1;
 			right = (i*2)+2;
 			
-			if(right <= Nodes.size())
+			if(right <= Nodes.size()-1)
 			{
 				if( Nodes.get(i).getValue().compareTo(Nodes.get(left).getValue()) > 0 &&
 					Nodes.get(i).getValue().compareTo(Nodes.get(right).getValue()) > 0	)

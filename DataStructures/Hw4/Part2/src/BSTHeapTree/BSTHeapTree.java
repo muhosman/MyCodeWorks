@@ -12,7 +12,7 @@ public class BSTHeapTree {
 		HeapTree<Integer> NewSecondTree = new HeapTree<Integer>();
 		HeapTree<Integer> NewTree = new HeapTree<Integer>();
 
-		
+		/*
 		for(int i=0; i<3000 ; i++)
 		{
 	        int randN = rand.nextInt(100);
@@ -20,7 +20,7 @@ public class BSTHeapTree {
 		}
 		
 		System.out.println(NewSecondTree.find_mod()+"  "+NewSecondTree.getNumberOfOcurrences() );
-		
+		*/
 		
 		NewTree.add(16);
 		NewTree.add(17);
@@ -54,8 +54,13 @@ public class BSTHeapTree {
 		NewTree.add(1);
 		NewTree.add(5);
 
-		
-		
+		NewTree.remove(500);
+		NewTree.remove(125);
+		NewTree.remove(1000);
+		NewTree.remove(1000);
+
+		NewTree.add(5000);
+
 		System.out.println(NewTree.find_mod());
 		System.out.println(NewTree.find(10));
 

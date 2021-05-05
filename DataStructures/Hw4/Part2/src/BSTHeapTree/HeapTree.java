@@ -22,7 +22,7 @@ public class HeapTree<E extends Comparable<E>> {
 	private Node<E> root;
 	private int numberOfOcurrence;
 	private E mod;
-
+	
 	/*
 	 * Getters of mod
 	 * @return mod
@@ -79,7 +79,7 @@ public class HeapTree<E extends Comparable<E>> {
 	 * @return root
 	 * @return tempNumberOfOcurrence It takes first mod number of numberOfOcurence
 	 */
-    public E travelFindMod(Node<E> root,int tempNumberOfOcurrence)
+    private E travelFindMod(Node<E> root,int tempNumberOfOcurrence)
     {
     	E temp;
     	
@@ -107,24 +107,22 @@ public class HeapTree<E extends Comparable<E>> {
 	 * @parameter element The element is value that will add
 	 * @return numberOfOcurence It will return numberOfOcurrences for added item
 	 */
-    /*
 	public int remove(E element)
     {
          root = removeRecursive(root, element);
          return getNumberOfOcurrences();
     }
 
-	*/
+
 	/*
 	 * It will recursively travel this tree until to add this newValue
 	 * @parameter root Root node
 	 * @parameter newValue The newValue is value that will add
 	 * @return root It will return this root that is in already there.
 	 */
-	/*
-	public Node<E> removeRecursive(Node<E> root,E newValue)
+	private Node<E> removeRecursive(Node<E> root,E newValue)
     {
-
+		int flag = 0;
     	int temp = root.parent.remove(newValue);
 		setNumberOfOcurrences(temp);
 
@@ -134,19 +132,24 @@ public class HeapTree<E extends Comparable<E>> {
 			{
 				if(root.parent.getSize() == 0)
 				{
-					root = minRoot(root.right);
+					root = null;
+					root = sortTree(root);
 				}
 				else
 				{
-					if(root.parent.getElement(0).compareTo((E)root.left.parent.getElement(0)) < 0)
-					{
-						sortTree(root);
-					}
-					else if(root.parent.getElement(0).compareTo((E)root.right.parent.getElement(0)) < 0)
-					{
-						sortTree(root);
-					}
-					else 
+					if(root.left != null)
+						if(root.parent.getElement(0).compareTo((E)root.left.parent.getElement(0)) < 0 )
+						{
+							flag = 1;
+							root = sortTree(root);
+						}
+					if(root.right != null && flag != 1)
+						if(root.parent.getElement(0).compareTo((E)root.right.parent.getElement(0)) > 0)
+						{
+							flag = 1;
+							root = sortTree(root);
+						}
+					if(flag != 1)
 						return root;
 				}
 			}
@@ -157,49 +160,60 @@ public class HeapTree<E extends Comparable<E>> {
     	{
     		return root;
     	}
-		else if ( root.parent.getElement(0).compareTo(newValue) > 0)
+		else if ( root.parent.getElement(0).compareTo(newValue) > 0 && root.left != null)
         {
             root.left = removeRecursive(root.left, newValue);
         }
-        else if (root.parent.getElement(0).compareTo(newValue) < 0)
+        else if (root.parent.getElement(0).compareTo(newValue) < 0 && root.right != null)
         {	
             root.right = removeRecursive(root.right, newValue);
         }
         
-
         return root;
     }
 	
-	public void sortTree(Node<E> root)
+	/*
+	 * It will sort tree like BST implementation
+	 * @parameter root 
+	 * @return root
+	 */
+	private Node<E> sortTree(Node<E> root)
 	{
-		if(root.parent.getElement(0).compareTo((E)root.left.parent.getElement(0)) < 0)
-		{
-			Node<E> templ = root.left;
-			Node<E> tempr = root.right;
-
-			sortTree(root.left);
-		}
-		else if(root.parent.getElement(0).compareTo((E)root.right.parent.getElement(0)) < 0)
-		{
-			sortTree(root.right);
-		}
-		
+		if(root.left != null)
+			if(root.parent.getElement(0).compareTo((E)root.left.parent.getElement(0)) < 0 )
+			{
+				Heap<? super E> temp = root.parent;
+				root.parent = root.left.parent;
+				root.left.parent = temp;
+				sortTree(root.left);
+				return root;
+			}
+		if(root.right != null)
+			if(root.parent.getElement(0).compareTo((E)root.right.parent.getElement(0)) > 0)
+			{
+				Heap<? super E> temp = root.parent;
+				root.parent = root.right.parent;
+				root.right.parent = temp;
+				sortTree(root.right);
+				return root;
+			}
+		return root;
 		
 	}
-	
-	public Node<E> minRoot(Node<E> root)
-	{
 
-	}
-		*/
 	/*
 	 * It will add newValue in tree
 	 * @parameter newValue The newValue is value that will add
 	 * @return numberOfOcurence It will return numberOfOcurrences for added item
 	 */
 	public int add(E newValue)
-    {
-         root = addRecursive(root, newValue);
+    {	
+
+
+        root = addRecursive(root, newValue);
+         
+ 		if(root!= null)
+			System.out.println("Root-"+root.parent.getElement(0));
          return getNumberOfOcurrences();
     }
 	
@@ -209,7 +223,7 @@ public class HeapTree<E extends Comparable<E>> {
 	 * @parameter newValue The newValue is value that will add
 	 * @return root It will return this root that is in already there.
 	 */
-	public Node<E> addRecursive(Node<E> root,E newValue)
+	private Node<E> addRecursive(Node<E> root,E newValue)
     {
  
         /* 
@@ -227,7 +241,15 @@ public class HeapTree<E extends Comparable<E>> {
         /* 
          * If the value can add this root, it will add to this root otherwhise it will go down.
          */
+        if((Integer)newValue == 5000)
+        {
+        	System.out.println("Burda--"+root.parent.getElement(0));
+        }
     	int temp = root.parent.add(newValue);
+        if((Integer)newValue == 5000)
+        {
+        	System.out.println("Burda--"+temp);
+        }
 		setNumberOfOcurrences(temp);
 
     	if( temp != -1)
@@ -246,6 +268,11 @@ public class HeapTree<E extends Comparable<E>> {
         return root;
     }
 	
+	/*
+	 * It will find the biggest element in tree
+	 * @parameter element Element is the variable that we will search for finding the biggest variable
+	 * @return It will return 
+	 */
     public int find(E element)
     {
     	int temp = travelfind(root,element);
@@ -275,19 +302,19 @@ public class HeapTree<E extends Comparable<E>> {
 	 /*
 	  * Print function.
 	  */
-    void travelPrint()
+    public void travelPrint()
     {
          travel(root);
     }
  
     // A utility function to
     // do inorder traversal of BST
-    void travel(Node<E> root)
+    private void travel(Node<E> root)
     {
         if (root != null) {
-            travel(root.left);
             root.parent.printList();
             System.out.println();
+            travel(root.left);
             travel(root.right);
         }
     }
