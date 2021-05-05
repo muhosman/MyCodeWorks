@@ -3,30 +3,50 @@ package com.Osman;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Heap<E extends Comparable<E>> implements Iterator {
+public class Heap<E extends Comparable<E>> {
 	
 	private ArrayList<E> Nodes = new ArrayList<E>();
 	
+	/*
+	 * Getters of Element
+	 * @parameter i
+	 * @return element
+	 */
 	public E getElement(int i)
 	{
 		return Nodes.get(i);
 	}
+	/*
+	 * Getters of size
+	 * @return size
+	 */
 	public int getSize()
 	{
 		return Nodes.size(); 
 	}
 	
-	
+	/*
+	 * It will delete root element.
+	 */
     public int deleteRoot()
     {  
-    	Nodes.set(0, Nodes.get(Nodes.size()-1));
-        Nodes.remove(Nodes.size()-1);
+    	if(Nodes.size() != 0)
+    	{
+        	Nodes.set(0, Nodes.get(Nodes.size()-1));
+            Nodes.remove(Nodes.size()-1);
+    	}
+    	else
+		     throw new IllegalAccessError("No Element");
+
   
         heapDeleteSort(0);
         
         return 0;
     }
-	
+	/*
+	 * It will sort all of the heap when the root is deleted.
+	 * @parameter parent Parent index
+	 */
     private void heapDeleteSort(int parent)
     {
         int largest = parent;
@@ -49,6 +69,10 @@ public class Heap<E extends Comparable<E>> implements Iterator {
     }
   
 
+    /*
+     * It will add i in heap
+     * @parameter i 
+     */
 	 public void insertNode(E i) throws IllegalAccessException
 	 {
 		 if(!SearchElement(i))
@@ -62,7 +86,10 @@ public class Heap<E extends Comparable<E>> implements Iterator {
 	 }
 	 
     
-
+	 /*
+	  * It is a helper function for sorting when the element is inserted.
+	  * @parameter i
+	  */
 	 private void heapInsertSort(int i)
 	 {
 	     int parent = (i - 1) / 2;
@@ -77,7 +104,10 @@ public class Heap<E extends Comparable<E>> implements Iterator {
 	     }
 	 }
 	   
-
+	 /*
+	  * It is a helper function for search.
+	  * @parameter element
+	  */
     private boolean SearchElement(E element)
     {
     	
@@ -91,7 +121,10 @@ public class Heap<E extends Comparable<E>> implements Iterator {
     	return false;
     }
     
-    
+    /*
+     * It searchs element in the heap.
+     * @parameter element
+     */
     public void Search(E element)
     {
     	if(SearchElement(element))
@@ -101,7 +134,10 @@ public class Heap<E extends Comparable<E>> implements Iterator {
 
     }
     
-    
+    /*
+     * It will merge two heap.
+     * @parameter New It will take a new heap parameter.
+     */
     public void mergeHeap(Heap<E> New)
     {
     	for(int i=0 ; i < New.getSize() ; i++)
@@ -123,17 +159,5 @@ public class Heap<E extends Comparable<E>> implements Iterator {
     		System.out.print(i+"-"+Nodes.get(i)+"  ");
     	}
     }
-   
-    
-    @Override
-	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Object next() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
