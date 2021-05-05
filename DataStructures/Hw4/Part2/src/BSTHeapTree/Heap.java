@@ -298,10 +298,6 @@ public class Heap <E extends Comparable<E>>{
 	    public int Search(E element)
 	    {
 	    	int temp = SearchElement(element);
-	    	if( temp != -1)
-	    		System.out.println("Element is founded.");
-	    	else
-	    		System.out.println("Element is not founded.");
 	    	return temp;
 	    }
 	    

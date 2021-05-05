@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class BSTHeapTree {
 		
-	public static void driverFunction()
+	public static void driverFunction() throws IllegalAccessException
 	{
 
 
@@ -12,16 +12,23 @@ public class BSTHeapTree {
 		HeapTree<Integer> NewSecondTree = new HeapTree<Integer>();
 		HeapTree<Integer> NewTree = new HeapTree<Integer>();
 
-		/*
+		
 		for(int i=0; i<3000 ; i++)
 		{
 	        int randN = rand.nextInt(100);
 			NewSecondTree.add(randN);
 		}
 		
-		System.out.println(NewSecondTree.find_mod()+"  "+NewSecondTree.getNumberOfOcurrences() );
-		*/
+		try {
+			System.out.println("Mod Number"+NewSecondTree.find_mod()+"  "+"Mod NumberOfOcurrence-"+NewSecondTree.getNumberOfOcurrences() );
+		}
+		catch(IllegalAccessException e) {
+            System.out.println("There are not any element in this heap.");
+		}
 		
+		System.out.println();
+		System.out.println();
+
 		NewTree.add(16);
 		NewTree.add(17);
 		NewTree.add(125);
@@ -54,23 +61,40 @@ public class BSTHeapTree {
 		NewTree.add(1);
 		NewTree.add(5);
 
-		NewTree.remove(500);
-		NewTree.remove(125);
-		NewTree.remove(1000);
-		NewTree.remove(1000);
+		try {
+			NewTree.remove(500);
+			NewTree.remove(125);
+			NewTree.remove(1000);
+			NewTree.remove(1000);
 
+		}
+		catch(IllegalAccessException e) {
+            System.out.println("There are not any element in this heap.");
+		}
+		
 		NewTree.add(5000);
-
-		System.out.println(NewTree.find_mod());
-		System.out.println(NewTree.find(10));
-
+		
+		System.out.println("--HeapTree--");
 		NewTree.travelPrint();
+		System.out.println();
+
+		try {
+			System.out.println("Mod Number-"+NewTree.find_mod());
+		}
+		catch(IllegalAccessException e) {
+            System.out.println("There are not any element in this heap.");
+		}
+		
+		System.out.println("If element is founded it will print numberofocurrence otherwise it will print -1 : "+NewTree.find(1100));
+		System.out.println("If element is founded it will print numberofocurrence otherwise it will print -1 : "+NewTree.find(11));
+		System.out.println("If element is founded it will print numberofocurrence otherwise it will print -1 : "+NewTree.find(1040));
+		System.out.println("If element is founded it will print numberofocurrence otherwise it will print -1 : "+NewTree.find(122));
+
 
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws IllegalAccessException
 	{
 		driverFunction();
-
 	}
 }

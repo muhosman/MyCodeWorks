@@ -32,20 +32,27 @@ public class HeapOperation
             System.out.println("You want add elment that already in the heap.");
         }
     		
-        
+        try {		
+        	
+        	NewHeap.deleteRoot();
+
+			NewHeap.printList();
+	
+			System.out.println();
+	
+	    	System.out.println("--Merged Heap--");
+	
+			NewHeap.mergeHeap(NewHeapp);
+			
 			NewHeap.deleteRoot();
+	
+			NewHeap.printList();
+        }
 
-    		NewHeap.printList();
-
-    		System.out.println();
-
-        	System.out.println("--Merged Heap--");
-
-    		NewHeap.mergeHeap(NewHeapp);
     		
-    		NewHeap.deleteRoot();
-
-    		NewHeap.printList();
+            catch (IllegalAccessException e) {
+                System.out.println("There are not any element like this.");
+            }
 
 	}
 	public static void main(String[] args) 

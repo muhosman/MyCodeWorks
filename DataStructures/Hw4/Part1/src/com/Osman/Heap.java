@@ -28,7 +28,7 @@ public class Heap<E extends Comparable<E>> {
 	/*
 	 * It will delete root element.
 	 */
-    public int deleteRoot()
+    public int deleteRoot() throws IllegalAccessException
     {  
     	if(Nodes.size() != 0)
     	{
@@ -36,7 +36,7 @@ public class Heap<E extends Comparable<E>> {
             Nodes.remove(Nodes.size()-1);
     	}
     	else
-		     throw new IllegalAccessError("No Element");
+		     throw new IllegalAccessException("No Element");
 
   
         heapDeleteSort(0);

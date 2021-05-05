@@ -64,14 +64,21 @@ public class HeapTree<E extends Comparable<E>> {
 	 * It will find mod in the tree so it calls to travel find mod.
 	 * @return It will return the mod element
 	 */
-	public E find_mod()
+	public E find_mod() throws IllegalAccessException
 	{
-		int temp = root.parent.getModNumberOfOcurrence();
-		E tempp;
+		if(root != null)
+		{
+			int temp = root.parent.getModNumberOfOcurrence();
+			E tempp;
+			
+			mod = (E) root.parent.find_mod();
 		
-		mod = (E) root.parent.find_mod();
-	
-		return travelFindMod(root,temp);
+			return travelFindMod(root,temp);
+		}
+		else
+	        throw new IllegalAccessException("Any element");
+
+
 	}
 	
 	/*
@@ -107,10 +114,15 @@ public class HeapTree<E extends Comparable<E>> {
 	 * @parameter element The element is value that will add
 	 * @return numberOfOcurence It will return numberOfOcurrences for added item
 	 */
-	public int remove(E element)
+	public int remove(E element) throws IllegalAccessException
     {
-         root = removeRecursive(root, element);
-         return getNumberOfOcurrences();
+		if(find(element) != -1)
+		{
+	         root = removeRecursive(root, element);
+	         return getNumberOfOcurrences();
+		}
+		else
+	        throw new IllegalAccessException("Any element");
     }
 
 
@@ -208,13 +220,8 @@ public class HeapTree<E extends Comparable<E>> {
 	 */
 	public int add(E newValue)
     {	
-
-
-        root = addRecursive(root, newValue);
-         
- 		if(root!= null)
-			System.out.println("Root-"+root.parent.getElement(0));
-         return getNumberOfOcurrences();
+        root = addRecursive(root, newValue); 
+        return getNumberOfOcurrences();
     }
 	
 	/*
@@ -241,15 +248,8 @@ public class HeapTree<E extends Comparable<E>> {
         /* 
          * If the value can add this root, it will add to this root otherwhise it will go down.
          */
-        if((Integer)newValue == 5000)
-        {
-        	System.out.println("Burda--"+root.parent.getElement(0));
-        }
     	int temp = root.parent.add(newValue);
-        if((Integer)newValue == 5000)
-        {
-        	System.out.println("Burda--"+temp);
-        }
+
 		setNumberOfOcurrences(temp);
 
     	if( temp != -1)
@@ -275,28 +275,27 @@ public class HeapTree<E extends Comparable<E>> {
 	 */
     public int find(E element)
     {
-    	int temp = travelfind(root,element);
-        return root.parent.getNumberOfOcurrences(temp);
+    	travelfind(root,element);
+        return getNumberOfOcurrences();
     }
 
-    private int travelfind(Node<E> root,E element)
+    private void travelfind(Node<E> root,E element)
     {
-    	int temp = root.parent.Search(element);
+    	int temp = -1;
+    	if(root != null) {
+    		 temp = root.parent.Search(element);
+    	}
     	
         if (root != null && temp == -1) {
-            temp = travelfind(root.left,element);
-            if(temp != -1)
-            	return temp;
-            temp = travelfind(root.right,element);
-            if(temp != -1)
-            	return temp;
+            travelfind(root.left,element);   
+            if(temp == -1)
+            	travelfind(root.right,element);
         }
-        else if(temp == -1)
+        else if(temp != -1)
         {
-        	return -1;
+        	setNumberOfOcurrences(root.parent.getNumberOfOcurrences(temp));
         }
-        
-        return temp;
+
     }
 	
 	 /*
@@ -307,8 +306,10 @@ public class HeapTree<E extends Comparable<E>> {
          travel(root);
     }
  
-    // A utility function to
-    // do inorder traversal of BST
+    
+    /*
+     *  inorder traversal
+     */
     private void travel(Node<E> root)
     {
         if (root != null) {
