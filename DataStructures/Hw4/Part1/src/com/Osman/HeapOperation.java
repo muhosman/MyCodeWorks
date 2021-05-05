@@ -2,37 +2,55 @@ package com.Osman;
 
 public class HeapOperation 
 {
-	public static void main(String[] args) 
+	public static void TestFunction()
 	{
 		Heap<Integer> NewHeap = new Heap<Integer>();
 		Heap<Integer> NewHeapp = new Heap<Integer>();
 
-		NewHeapp.insertNode(10);
-		NewHeapp.insertNode(11);
-		NewHeapp.insertNode(12);
-		NewHeapp.insertNode(13);
-		
-		NewHeapp.printList();
-		
-		System.out.println();
-		
-		NewHeap.insertNode(14);
-		NewHeap.insertNode(15);
-		NewHeap.insertNode(16);
-		NewHeap.insertNode(17);
-		
-		NewHeap.printList();
+        try {
+        	System.out.println("--First Heap--");
+    		NewHeapp.insertNode(13);
+    		NewHeapp.insertNode(10);
+    		NewHeapp.insertNode(12);
+    		NewHeapp.insertNode(11);
 
-		System.out.println();
+    		
+    		NewHeapp.printList();
+    		
+    		System.out.println();
+        	System.out.println("--Second Heap--");
 
-		
-		NewHeap.mergeHeap(NewHeapp);
-		
-		NewHeap.deleteRoot();
-		
-		
-		
-		NewHeap.printList();
+    		NewHeap.insertNode(13);
+    		NewHeap.insertNode(17);
+    		NewHeap.insertNode(18);
+    		NewHeap.insertNode(15);
+    		NewHeap.insertNode(19);
+    		NewHeap.insertNode(16);
+
+        }
+        catch (IllegalAccessException e) {
+            System.out.println("You want add elment that already in the heap.");
+        }
+    		
+        
+			NewHeap.deleteRoot();
+
+    		NewHeap.printList();
+
+    		System.out.println();
+
+        	System.out.println("--Merged Heap--");
+
+    		NewHeap.mergeHeap(NewHeapp);
+    		
+    		NewHeap.deleteRoot();
+
+    		NewHeap.printList();
+
+	}
+	public static void main(String[] args) 
+	{
+		TestFunction();
 	}
 
 }

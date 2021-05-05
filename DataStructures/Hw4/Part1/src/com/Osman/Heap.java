@@ -27,7 +27,7 @@ public class Heap<E extends Comparable<E>> implements Iterator {
         return 0;
     }
 	
-    public void heapDeleteSort(int parent)
+    private void heapDeleteSort(int parent)
     {
         int largest = parent;
         int left = 2 * parent + 1;
@@ -49,15 +49,21 @@ public class Heap<E extends Comparable<E>> implements Iterator {
     }
   
 
-	 public void insertNode(E i)
+	 public void insertNode(E i) throws IllegalAccessException
 	 {
-	  	Nodes.add(i);
-	  	heapInsertSort(Nodes.size()-1);
+		 if(!SearchElement(i))
+		 {
+			  	Nodes.add(i);
+			  	heapInsertSort(Nodes.size()-1);
+		 }
+		 else 
+		     throw new IllegalAccessException("Same Element");
+
 	 }
 	 
     
 
-	 public void heapInsertSort(int i)
+	 private void heapInsertSort(int i)
 	 {
 	     int parent = (i - 1) / 2;
 	   
@@ -100,7 +106,12 @@ public class Heap<E extends Comparable<E>> implements Iterator {
     {
     	for(int i=0 ; i < New.getSize() ; i++)
     	{
-    		insertNode(New.getElement(i));
+    		try {
+				insertNode(New.getElement(i));
+			}  	
+    		catch (IllegalAccessException e) {
+	            System.out.println("Same Element Skipped-"+New.getElement(i));
+	        }
     	}
     }
 	
@@ -109,7 +120,7 @@ public class Heap<E extends Comparable<E>> implements Iterator {
     {
     	for(int i=0; i < Nodes.size() ; i++)
     	{
-    		System.out.println(Nodes.get(i));
+    		System.out.print(i+"-"+Nodes.get(i)+"  ");
     	}
     }
    
