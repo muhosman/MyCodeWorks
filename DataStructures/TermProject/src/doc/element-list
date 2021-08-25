@@ -1,1 +1,5 @@
-unnamed package
+com.datastrcrew.libraryapi.classes
+com.datastrcrew.libraryapi.entity
+com.datastrcrew.libraryapi.hashing
+com.datastrcrew.libraryapi.initialization
+com.datastrcrew.libraryapi.service

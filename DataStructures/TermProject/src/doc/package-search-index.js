@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.datastrcrew.libraryapi.classes"},{"l":"com.datastrcrew.libraryapi.entity"},{"l":"com.datastrcrew.libraryapi.hashing"},{"l":"com.datastrcrew.libraryapi.initialization"},{"l":"com.datastrcrew.libraryapi.service"}];updateSearchResults();
